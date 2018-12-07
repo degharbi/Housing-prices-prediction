@@ -115,15 +115,58 @@
 				<div class="col-4">
 					<div class="fixed">
 						<div id='map' style='max-height:680px;'></div>
-						<script>
+						<!-- <script>
+							var lat = 47.5112;
+							var long = -122.257;
 							mapboxgl.accessToken = 'pk.eyJ1Ijoia25kcW9zbndxIiwiYSI6ImNqbWMwdmF0YjA2YXMzcm52MzdkZHg2ZzQifQ.0htn-FSrTYIGOM251imzEw';
 							const map = new mapboxgl.Map({
 							container: 'map',
 							style: 'mapbox://styles/kndqosnwq/cjmf7duk63gou2smgpq1p0eoc',
-							center: [-122.257, 47.5112],
+							center: [long, lat],
 							zoom: 7.0
 							});
-						</script>
+						</script> 
+						 -->
+						<script>
+								mapboxgl.accessToken = 'pk.eyJ1Ijoia25kcW9zbndxIiwiYSI6ImNqbWMwdmF0YjA2YXMzcm52MzdkZHg2ZzQifQ.0htn-FSrTYIGOM251imzEw';
+								var map = new mapboxgl.Map({
+									container: 'map',
+									style: 'mapbox://styles/mapbox/light-v9',
+									zoom: 12,
+									center: [-122.447303, 37.753574]
+								});
+								
+								map.on('load', function () {
+								
+									map.addLayer({
+										'id': 'population',
+										'type': 'circle',
+										'source': {
+											type: 'vector',
+											url: 'https://raw.githubusercontent.com/degharbi/Housing-prices-prediction/master/kc_house_data.csv'
+										},
+										'source-layer': 'sf2010',
+										'paint': {
+											// make circles larger as the user zooms from z12 to z22
+											'circle-radius': {
+												'base': 1.75,
+												'stops': [[12, 2], [22, 180]]
+											},
+											// color circles by ethnicity, using a match expression
+											// https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+											'circle-color': [
+												'match',
+												['get', 'ethnicity'],
+												'White', '#fbb03b',
+												'Black', '#223b53',
+												'Hispanic', '#e55e5e',
+												'Asian', '#3bb2d0',
+												/* other */ '#ccc'
+											]
+										}
+									});
+								});
+							</script>						
 					</div>
 				</div>
 			</div>

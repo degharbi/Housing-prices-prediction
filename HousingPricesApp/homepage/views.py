@@ -53,7 +53,9 @@ def post(request):
 		'form': form,
 		'resultat': predicted,
 		'train_score': train_score,
-		'test_score' : test_score
+		'test_score' : test_score,
+		'lat' : feature3,
+		'long' : feature4,
 		}
 	return render(request, 'homepage/page_accueil.html', args)
 
