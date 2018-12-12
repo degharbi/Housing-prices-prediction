@@ -59,3 +59,8 @@ def post(request):
 		}
 	return render(request, 'homepage/page_accueil.html', args)
 
+def test(request):
+ 
+	args = {
+		}
+	return render(request, 'homepage/test.html', args)
