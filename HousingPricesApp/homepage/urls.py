@@ -5,6 +5,7 @@ app_name = 'homepage'
 
 urlpatterns = [
     path('', views.post),
-    path('js', views.test),
+    path('dashboard.html', views.test),
+    path('test2.html', views.test2),
 ]
 

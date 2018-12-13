@@ -1,0 +1,45 @@
+{
+    "content": "buy_sold",
+    "targets": {
+        "zip": "98126",
+        "mlat": "47.556464500000004",
+        "zusr": "true",
+        "city": "Seattle",
+        "vers": "ADS_Tagless:Casale_On,SHO_MOBILE_WEB_NAV_ADS:AFTER_2ND,SHO_ADS_AND_TRACKING_PIXELS:CONTROL,SRP_DESKTOP_ADS_VARIANTS:VARIANT_B,SHO_DESKTOP_EXPOSED_FILTERS:CONTROL,SRP_MWEB_ADS_VARIANTS:VARIANT_B,SHO_DESKTOP_NAV_AD_LOAD_ORDER:EARLIER_AD_REQUEST,SHO_NAV_AD_BACKGROUND:GRAY,HDP_NativePhotoplayer:ON,HDP_FAF_TELECOM:CONTROL,HDP_CONTENT_REGROUP:CONTROL,HDP_AD_BELOW_MODULES:ON_ABOVE_CONTACT_MID_RENDER,HDP_SERVICE_FSBA:REACT_HDP,HDP_SERVICE_FSBA_MOBILE:ON,HDP_SERVICE_NFS:CONTROL",
+        "listtp": "buy_sold",
+        "searchtp": "zipcode",
+        "filtered": "false",
+        "zguidh": "-3515583004836126627",
+        "premieragent": "no",
+        "targetRegionId": "99584",
+        "dma": "206",
+        "agentnavads": "yes",
+        "state": "WA",
+        "mlong": "-122.3799635",
+        "pis": "3",
+        "cnty": "King"
+    }
+},
+{
+    "status": "Info",
+    "message": "No update required",
+    "reason": "No previous search or timestamp",
+    "content": "buy_sold",
+    "targets": {
+        "zip": "98126",
+        "mlat": "47.5564545",
+        "zusr": "true",
+        "city": "Seattle",
+        "vers": "ADS_Tagless:Casale_On,SHO_MOBILE_WEB_NAV_ADS:AFTER_2ND,SHO_ADS_AND_TRACKING_PIXELS:CONTROL,SRP_DESKTOP_ADS_VARIANTS:VARIANT_B,SHO_DESKTOP_EXPOSED_FILTERS:CONTROL,SRP_MWEB_ADS_VARIANTS:VARIANT_B,SHO_DESKTOP_NAV_AD_LOAD_ORDER:EARLIER_AD_REQUEST,SHO_NAV_AD_BACKGROUND:GRAY,HDP_NativePhotoplayer:ON,HDP_FAF_TELECOM:CONTROL,HDP_CONTENT_REGROUP:CONTROL,HDP_AD_BELOW_MODULES:ON_ABOVE_CONTACT_MID_RENDER,HDP_SERVICE_FSBA:REACT_HDP,HDP_SERVICE_FSBA_MOBILE:ON,HDP_SERVICE_NFS:CONTROL",
+        "listtp": "buy_sold",
+        "searchtp": "unknown",
+        "filtered": "false",
+        "zguidh": "-3515583004836126627",
+        "premieragent": "no",
+        "dma": "206",
+        "state": "WA",
+        "mlong": "-122.37997100000001",
+        "pis": "3",
+        "cnty": "King"
+    }
+}
