@@ -1,4 +1,4 @@
-id,date,price,bedrooms,bathrooms,sqft_living,sqft_lot,floors,waterfront,vue,condition,     grade,sqft_above,sqft_basement,yr_built,yr_renovated,zipcode,lat,long,sqft_living15,sqft_lot15
+id,date,price,bedrooms,bathrooms,sqft_living,sqft_lot,floors,waterfront,view,condition,grade,sqft_above,sqft_basement,yr_built,yr_renovated,zipcode,lat,long,sqft_living15,sqft_lot15
 6123415060, '', '', 3.0, 2.0, 1810.0, 6198.0, '', '', '', '', '', '', '', -1, '', u'98177', 477.71335, -122.358212, '', ''
 7488078255, '', '', 4.0, 4.0, 3080.0, 36154.0, '', '', '', '', '', '', '', -1, '', u'98027', 474.67851, -122.01055, '', ''
 9844329224, '', '', 2.0, 1.0, 690.0, 4721.0, '', '', '', '', '', '', '', -1, '', u'98106', 475.24554, -122.358143, '', ''
