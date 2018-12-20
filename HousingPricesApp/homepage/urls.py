@@ -6,6 +6,6 @@ app_name = 'homepage'
 urlpatterns = [
     path('', views.post),
     path('dashboard.html', views.test),
-    path('test2.html', views.test2),
+    path('Gradient_Boosting.html', views.test2),
 ]
 

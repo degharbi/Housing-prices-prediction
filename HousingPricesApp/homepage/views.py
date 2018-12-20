@@ -66,7 +66,4 @@ def test(request):
 	return render(request, 'homepage/dashboard.html', args)
 
 def test2(request):
- 
-	args = {
-		}
-	return render(request, 'homepage/test2.html', args)
+	return render(request, 'homepage/Gradient_Boosting.html')
