@@ -1,0 +1,256 @@
+{% extends 'tete.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	{% block head %}
+	<title>test</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<script src='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+
+	<style>
+		#map { position:absolute; top:0; bottom:0; width:100%; }  
+			div.fixed {
+				position: fixed;
+				top: 62px;
+				right: 10px;
+				width: 33%;
+				height: 100%;
+				min-height: 100%;}
+			* {
+			box-sizing: border-box;
+			}
+			.autocomplete {
+			/*the container must be positioned relative:*/
+			position: relative;
+			display: inline-block;
+			}
+	
+			input {
+			border: 1px solid transparent;
+			background-color: #f1f1f1;
+			padding: 10px;
+			font-size: 16px;
+			}
+	
+			input[type=text] {
+			background-color: #f1f1f1;
+			width: 100%;
+			}
+	
+			input[type=submit] {
+			background-color: DodgerBlue;
+			color: #fff;
+			cursor: pointer;
+			}
+	
+			.autocomplete-items {
+			position: absolute;
+			border: 1px solid #d4d4d4;
+			border-bottom: none;
+			border-top: none;
+			z-index: 99;
+			/*position the autocomplete items to be the same width as the container:*/
+			top: 100%;
+			left: 0;
+			right: 0;
+			}
+	
+			.autocomplete-items div {
+			padding: 10px;
+			cursor: pointer;
+			background-color: #fff; 
+			border-bottom: 1px solid #d4d4d4; 
+			}
+	
+			.autocomplete-items div:hover {
+			/*when hovering an item:*/
+			background-color: #e9e9e9; 
+			}
+	
+			.autocomplete-active {
+			/*when navigating through the items using the arrow keys:*/
+			background-color: DodgerBlue !important; 
+			color: #ffffff; 
+			}			
+		svg {
+		font: 10px sans-serif;
+	  }
+	
+	  .y.axis path {
+		display: none;
+	  }
+	
+	  .y.axis line {
+		stroke: #fff;
+		stroke-opacity: .2;
+		shape-rendering: crispEdges;
+	  }
+	
+	  .y.axis .zero line {
+		stroke: #000;
+		stroke-opacity: 1;
+	  }
+	
+	  .title {
+		font: 300 78px Helvetica Neue;
+		fill: #666;
+	  }
+	
+	  .birthyear,
+	  .age {
+		text-anchor: middle;
+	  }
+	
+	  .birthyear {
+		fill: #fff;
+	  }
+	
+	  rect {
+		fill-opacity: .6;
+		fill: #e377c2;
+	  }
+	
+	  rect:first-child {
+		fill: #1f77b4;
+	  }
+	
+		</style>
+	{% endblock %}
+</head>
+
+<body class="">
+	{% block body %}
+
+	<div class="p-3 mb-2 bg-light">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-8">
+					<div class="row">
+
+						<!-- Formulaire -->
+						<div class="container">
+							<form method="post" autocomplete="off">
+								{% csrf_token %}
+								{{form|crispy}}
+								<div class="row justify-content-md-center">
+									<input class="btn btn-primary center" type="submit" value="Predict the Price">
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="container">
+							<div class="row">
+								<h1>Predicted Price : {{predicted}}</h1>
+							</div>
+							<h3>Algorithm Score : {{test_score}}</h3>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- Map -->
+				<div class="col-4">
+					<div class="fixed">
+						<div id='map' style='max-height:680px;'></div>
+						<!-- <script>
+							var lat = 47.5112;
+							var long = -122.257;
+							mapboxgl.accessToken = 'pk.eyJ1Ijoia25kcW9zbndxIiwiYSI6ImNqbWMwdmF0YjA2YXMzcm52MzdkZHg2ZzQifQ.0htn-FSrTYIGOM251imzEw';
+							const map = new mapboxgl.Map({
+							container: 'map',
+							style: 'mapbox://styles/kndqosnwq/cjmf7duk63gou2smgpq1p0eoc',
+							center: [long, lat],
+							zoom: 7.0
+							});
+						</script> 
+						 -->
+						<script>
+							mapboxgl.accessToken = 'pk.eyJ1Ijoia25kcW9zbndxIiwiYSI6ImNqbWMwdmF0YjA2YXMzcm52MzdkZHg2ZzQifQ.0htn-FSrTYIGOM251imzEw';
+							var map = new mapboxgl.Map({
+								container: 'map',
+								style: 'mapbox://styles/mapbox/light-v9',
+								zoom: 12,
+								center: [-122.257, 47.5112]
+							});
+
+							map.on('load', function () {
+
+								map.addLayer({
+									'id': 'population',
+									'type': 'circle',
+									'source': {
+										type: 'vector',
+										url: 'https://raw.githubusercontent.com/degharbi/Housing-prices-prediction/master/kc_house_data.csv'
+									},
+									'source-layer': 'sf2010',
+									'paint': {
+										// make circles larger as the user zooms from z12 to z22
+										'circle-radius': {
+											'base': 1.75,
+											'stops': [[12, 2], [22, 180]]
+										},
+										// color circles by ethnicity, using a match expression
+										// https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+										'circle-color': [
+											'match',
+											['get', 'ethnicity'],
+											'White', '#fbb03b',
+											'Black', '#223b53',
+											'Hispanic', '#e55e5e',
+											'Asian', '#3bb2d0',
+												/* other */ '#ccc'
+										]
+									}
+								});
+							});
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div>
+		<a href="dashboard.html">dashboard</a>
+	</div>
+	<div id="myDiv">
+		<script>
+			var trace1 = {
+			x: [1, 2, 3, 4],
+			y: [10, 15, 13, 17],
+			mode: 'markers',
+			type: 'scatter'
+			};
+
+			var trace2 = {
+			x: [2, 3, 4, 5],
+			y: [16, 5, 11, 9],
+			mode: 'lines',
+			type: 'scatter'
+			};
+
+			var trace3 = {
+			x: [1, 2, 3, 4],
+			y: [12, 9, 15, 12],
+			mode: 'lines+markers',
+			type: 'scatter'
+			};
+
+			var data = [trace1, trace2, trace3];
+
+			Plotly.newPlot('myDiv', data);
+		</script>
+	</div>
+
+		{% endblock%}
+</body>
+
+</html>
